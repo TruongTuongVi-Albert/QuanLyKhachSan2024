@@ -1,0 +1,21 @@
+{% extends 'layout/base.html' %}
+
+{% block title %}Open Hotel{% endblock %}
+
+{% block content %}
+    <div class="row">
+        {% for p in products %}
+        <div class="col-md-3 col-12" style="padding: 0.8rem">
+            <div class="card">
+                <img alt="Card image" class="card-img-top" src="{{p.image}}">
+                <div class="card-body">
+                    <h4 class="card-title">{{p.name}}</h4>
+                    <p class="card-text">{{p.price}} VNĐ</p>
+                    <a class="btn btn-primary" href="/products/{{p.id}}">Xem chi tiết</a>
+                    <a class="btn btn-danger" href="#">Đặt ngay</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock %}
