@@ -1,0 +1,18 @@
+[
+  {
+    "id": 1,
+    "name": "Single room"
+  },
+  {
+    "id": 2,
+    "name": "Double room basic"
+  },
+  {
+    "id": 3,
+    "name": "Double room luxury"
+  },
+  {
+    "id": 4,
+    "name": "Triple room"
+  }
+]

@@ -1,0 +1,85 @@
+{% extends 'layout/base.html' %}
+
+{% block title %}Giới thiệu{% endblock %}
+
+{% block content %}
+<div class="carousel slide" data-bs-ride="carousel" id="demo">
+
+    <!-- Indicators/dots -->
+    <div class="carousel-indicators">
+        <button class="active" data-bs-slide-to="0" data-bs-target="#demo" type="button"></button>
+        <button data-bs-slide-to="1" data-bs-target="#demo" type="button"></button>
+        <button data-bs-slide-to="2" data-bs-target="#demo" type="button"></button>
+    </div>
+
+    <!-- The slideshow/carousel -->
+    <div class="carousel-inner img-fluid rounded mt-3">
+        <div class="carousel-item active">
+            <img class="d-block" src="https://dalat.terracottaresort.com/static/upload/images/slider/Banner-B.jpg"
+                 style="width:100%; height: 450px">
+        </div>
+        <div class="carousel-item">
+            <img class="d-block"
+                 src="https://dalat.terracottaresort.com/static/upload/images/phong-nghi/Phong-Nghi-Biet-Thu.jpg"
+                 style="height: 450px; width: 100%">
+        </div>
+        <div class="carousel-item">
+            <img class="d-block"
+                 src="https://cf.bstatic.com/xdata/images/hotel/max1024x768/193204458.jpg?k=90ecda2f949411b2a38b7836733dd1f8e4fde92319874d16e8ec6e0d6623a9de&o=&hp=1"
+                 style="height: 450px; width: 100%">
+        </div>
+    </div>
+
+    <!-- Left and right controls/icons -->
+    <button class="carousel-control-prev" data-bs-slide="prev" data-bs-target="#demo" type="button">
+        <span class="carousel-control-prev-icon"></span>
+    </button>
+    <button class="carousel-control-next" data-bs-slide="next" data-bs-target="#demo" type="button">
+        <span class="carousel-control-next-icon"></span>
+    </button>
+</div>
+
+<div class="row">
+    <div class="col-md-7 col-12 mt-2 m-lg-5 p-5">
+        <h2 class="text-success">Open Hotel</h2>
+        <h5>Open Hotel kính chào quý khách</h5>
+        <p class="text-justify" style="font-size: large"> Khu nghỉ dưỡng Open Hotel rộng hơn 17 hecta, toạ lạc ven hồ
+            Tuyền Lâm,
+            cách trung tâm Đà Lạt 5km, gồm 100 phòng nghỉ bên hồ với tổng thể kiến
+            trúc đậm nét đương đại hoà trong không gian lãng mạn của rừng thông, mây núi ở vùng thiên nhiên
+            quanh năm khí hậu ôn hoà bậc nhất Việt Nam. Mỗi căn biệt thự gồm 3 - 5 phòng ngủ, phòng khách,
+            phòng làm việc và bếp ăn, đảm bảo phù hợp với nhu cầu sử dụng của đại gia đình hoặc các nhóm bạn đi nghỉ
+            dưỡng.</p>
+    </div>
+    <div class="col-md-4 col-12 mt-auto">
+        <div class="img-fluid ">
+            <img class="rounded"
+                 src="https://terracotta-hotel-resort-dalat.hotelmix.vn/data/Photos/OriginalPhoto/12836/1283668/1283668222/Terracotta-Hotel-Resort-Dalat-Exterior.JPEG"
+                 style="height: 350px; width: 100%">
+        </div>
+    </div>
+</div>
+<div class="p-5 row">
+    <div class="img-fluid rounded col-md-7 col-12 ">
+        <img class="rounded" src="https://du-lich.chudu24.com/f/m/1710/10/villa-3bedrooms-14-0948171.jpg"
+             style="height: 100%; width: 100%">
+    </div>
+    <div class="col-md-1"></div>
+    <div class="col-md-4 col-12">
+        <h3 class="text-success"> Dịch vụ và giải trí ngoài trời</h3>
+        <p class="" style="font-size: large">
+            Đa dạng các địa điểm và dịch vụ giải trí: sân tennis, sân bóng rổ sân cầu lông, bàn bi da, bàn bi lắc,
+            hồ bơi trong nhà, phòng trò chơi dành cho trẻ em, massage/Spa, tour tham quan thành phố…
+            Có những ngày chúng ta đi tìm sự bình yên trong tâm hồn bằng những điều thật giản đơn:
+            đôi chân có thể chạm vào làn nước mát lạnh trong veo, thả chân trần trên bãi cát trắng mịn dưới ánh nắng
+            vàng
+            rực rỡ,
+            mọi điều nhỏ bé đều trở nên xinh đẹp và được chúng ta trân quý. Tại khách sạn Open Hotel,
+            chúng tôi thiết kế những góc nhỏ cho sự an yên và riêng tư, nơi bạn có thể tìm thấy sự tĩnh lặng trong tâm
+            trí,
+            sự lạc quan và niềm vui trong cuộc sống.
+        </p>
+    </div>
+</div>
+
+{% endblock %}

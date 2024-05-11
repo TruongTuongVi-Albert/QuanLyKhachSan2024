@@ -1,0 +1,30 @@
+{% extends 'layout/base.html' %}
+
+{% block title %}Open Hotel{% endblock %}
+
+{% block content %}
+
+{% if page > 1 %}
+<ul class="pagination mt-2">
+    {% for i in range(1, page+1) %}
+    <li class="page-item "><a class="page-link" href="/?page={{i}}">{{i}}</a></li>
+    {% endfor %}
+</ul>
+{% endif %}
+<div class="row">
+    {% for p in products %}
+    <div class="col-md-3 col-12" style="padding: 0.8rem">
+        <div class="card">
+            <img alt="Card image" class="card-img-top" src="{{p.image}}">
+            <div class="card-body">
+                <h4 class="card-title">{{p.name}}</h4>
+                <p class="card-text">{{p.price}} VNĐ</p>
+                <a class="btn btn-primary" href="/products/{{p.id}}">Xem chi tiết</a>
+                <a class="btn btn-danger" href="#">Đặt ngay</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends 'layout/base.html' %}
+
+{% block title %}Đăng nhập{% endblock %}
+
+{% block content %}
+<h2 class="text-center text-muted mt-3">ĐĂNG NHẬP NGƯỜI DÙNG</h2>
+{% if err_msg %}
+<div class="alert alert-danger">{{err_msg}}</div>
+{% endif %}
+<form class="container " method="post" style="width: 600px" >
+    <div class="form-floating mb-3 mt-3">
+        <input class="form-control" id="username" name="email" placeholder="Tên đăng nhập" type="text" pattern="[a-zA-Z0-9]+" required>
+        <label for="username">Tên đăng nhập</label>
+    </div>
+
+    <div class="form-floating mt-3 mb-3">
+        <input class="form-control" id="password" name="password" placeholder="Mật kẩu" type="password" required>
+        <label for="password">Mật khẩu</label>
+    </div>
+    <div class="form-check mb-3">
+        <label class="form-check-label">
+            <input class="form-check-input" name="remember" type="checkbox"> Nhắc tôi lần sau khi đăng nhập
+        </label>
+    </div>
+    <div class="form-floating mt-3 mb-3">
+        <button class="btn btn-primary" type="submit">Đăng nhập</button>
+    </div>
+</form>
+{% endblock %}

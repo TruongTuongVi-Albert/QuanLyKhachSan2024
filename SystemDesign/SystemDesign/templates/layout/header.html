@@ -1,0 +1,53 @@
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+    <div class="container-fluid">
+        <a class="nav-link" data-bs-toggle="dropdown" href="#" style="font-size: 25px">&#x2630;</a>
+        <ul class="dropdown-menu">
+            {% for c in categories %}
+            <li><a class="dropdown-item" href="/?category_id={{c.id}}">{{c.name}}</a></li>
+            {% endfor %}
+        </ul>
+        <a class="navbar-brand" href="/"><img src="https://img.freepik.com/premium-vector/logo-with-letter-t-dark-background_745595-535.jpg?size=626&ext=jpg" class="rounded-circle" style="width: 40px; height: 40px"></a>
+        <button class="navbar-toggler" data-bs-target="#collapsibleNavbar" data-bs-toggle="collapse" type="button">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="collapsibleNavbar">
+
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a class="nav-link active " href="/">Home </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active " href="/intro">Introduce </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active " href="#">&#127759; English</a>
+                </li>
+
+
+                {% if current_user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link active text-info" href="/login">
+                         <img class="rounded-circle img-fluid" src="{{ current_user.avatar }}" width="25"/> {{ current_user.username }}
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link active text-info" href="/logout">Logout</a>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link active text-info" href="/login">&#x1F482; Login</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link active text-info" href="/register">Sign Up</a>
+                </li>
+                {% endif %}
+            </ul>
+            <form class="d-flex m-2" style="height: 35px">
+                <input class="form-control me-2"  placeholder="Search..." type="text">
+                <button class="btn btn-primary bg-dark" type="button">&#x1F50D;</button>
+            </form>
+        </div>
+    </div>
+</nav>

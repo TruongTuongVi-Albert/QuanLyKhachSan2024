@@ -1,0 +1,79 @@
+[
+  {
+    "id": 1,
+    "name": "Phòng đơn basic bản 1",
+    "price": 1500000,
+    "image": "https://dyf.vn/wp-content/uploads/2021/11/noi-that-khach-san-5-sao-5.jpg",
+    "category_id": 1
+  },
+  {
+    "id": 2,
+    "name": "Phòng đơn basic bản 2",
+    "price": 1500000,
+    "image": "https://dyf.vn/wp-content/uploads/2021/11/noi-that-khach-san-5-sao-5.jpg",
+    "category_id": 1
+  },
+  {
+    "id": 3,
+    "name": "Phòng đôi basic bản 1",
+    "price": 3000000,
+    "image": "https://static1.cafeland.vn/cafelandnew/hinh-anh/2022/09/27/153/noithatksan5sao18.jpg",
+    "category_id": 2
+  },
+  {
+    "id": 4,
+    "name": "Phòng đôi basic bản 2",
+    "price": 3000000,
+    "image": "https://static1.cafeland.vn/cafelandnew/hinh-anh/2022/09/27/153/noithatksan5sao18.jpg",
+    "category_id": 2
+  },
+  {
+    "id": 5,
+    "name": "Phòng đôi basic bản 3",
+    "price": 4000000,
+    "image": "https://static1.cafeland.vn/cafelandnew/hinh-anh/2022/09/27/153/noithatksan5sao18.jpg",
+    "category_id": 2
+  },
+  {
+    "id": 6,
+    "name": "Phòng đôi luxury bản 1",
+    "price": 5000000,
+    "image": "https://khachsandanang.com.vn/data/images/Cac-khach-san-5-sao-tai-ha-noi-mytour-10.jpg",
+    "category_id": 3
+  },
+  {
+    "id": 7,
+    "name": "Phòng đôi luxury bản 2",
+    "price": 5000000,
+    "image": "https://khachsandanang.com.vn/data/images/Cac-khach-san-5-sao-tai-ha-noi-mytour-10.jpg",
+    "category_id": 3
+  },
+    {
+    "id": 8,
+    "name": "Phòng đôi luxury bản 3",
+    "price": 30000000,
+    "image": "https://khachsandanang.com.vn/data/images/Cac-khach-san-5-sao-tai-ha-noi-mytour-10.jpg",
+      "category_id": 3
+  },
+  {
+    "id": 9,
+    "name": "Phòng đôi luxury bản 4",
+    "price": 55000000,
+    "image": "https://khachsandanang.com.vn/data/images/Cac-khach-san-5-sao-tai-ha-noi-mytour-10.jpg",
+    "category_id": 3
+  },
+  {
+    "id": 10,
+    "name": "Phòng ba bản 1",
+    "price": 5000000,
+    "image": "https://acihome.vn/uploads/17/noi-that-trong-phong-ngu-khach-san-5-sao.jpg",
+    "category_id": 4
+  },
+  {
+    "id": 11,
+    "name": "Phòng ba bản 2",
+    "price": 5000000,
+    "image": "https://acihome.vn/uploads/17/noi-that-trong-phong-ngu-khach-san-5-sao.jpg",
+    "category_id": 4
+  }
+]
