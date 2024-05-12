@@ -4,21 +4,22 @@
 <h2 class="text-muted text-center mt-3"> CHÀO BẠN ĐẾN TRANG QUẢN TRỊ OPEN HOTEL</h2>
 
 {% if current_user.is_authenticated %}
-<h2 class="text-muted">Chào bạn <span>{{current_user.name}}</span> !!!</h2>
+<h2 class="text-success">Chào bạn <span>{{current_user.name}}</span> !!!</h2>
 {% else %}
 <h2 class="text-center text-muted mt-3 m-4">ĐĂNG NHẬP</h2>
 <form action="/admin-login" class="container " method="post" style="width: 600px">
     <div class="form-group mb-3 mt-3">
         <label for="username">Tên đăng nhập</label>
-        <input class="form-control" id="username" name="email" pattern="[a-zA-Z0-9]*" placeholder="Tên đăng nhập"
+        <input class="form-control" id="username" name="username" pattern="[a-zA-Z0-9]*" placeholder="Tên đăng nhập"
                required type="text">
     </div>
 
     <div class="form-group mt-3 mb-3">
         <label for="password">Mật khẩu</label>
-        <input class="form-control" id="password" name="password" placeholder="Mật kẩu" required type="password">
+        <input class="form-control" id="password" name="password" placeholder="Mật khẩu" required>
 
     </div>
+
     <div class="form-check mb-3">
         <label class="form-check-label">
             <input class="form-check-input" name="remember" type="checkbox"> Nhắc tôi lần sau khi đăng nhập
