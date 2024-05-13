@@ -1,7 +1,7 @@
 from enum import Enum as RoleEnum
 
 from flask_login import UserMixin
-from sqlalchemy import Column, Integer, String, ForeignKey, Float, Enum
+from sqlalchemy import Column, Integer, String, ForeignKey, Float, Enum, Date
 from sqlalchemy.orm import relationship
 
 from SystemDesign import db, app
@@ -45,9 +45,23 @@ class Product(db.Model):
         return self.name
 
 
+class BookRoom(db.Model):
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    name = Column(String(100), nullable=False)
+    phone = Column(Integer, unique=True, nullable=False)
+    product_id = Column(Integer, ForeignKey(Product.id), nullable=False)
+    quantity_customer = Column(Integer)
+    check_in_date = Column(Date)
+    check_out_date = Column(Date)
+    status = Column(String(3), default='no')
+
+    def __repr__(self):
+        return self.name
+
+
 if __name__ == '__main__':
     with app.app_context():
-        # db.create_all()
+        db.create_all()
         # c1 = Category(name='Phòng đơn')
         # c2 = Category(name='Phòng đôi đơn giản')
         # c3 = Category(name='Phòng đôi cao cấp')
@@ -65,13 +79,14 @@ if __name__ == '__main__':
         #     db.session.commit()
 
         import hashlib
+
         # u = User(name='admin', username='admin',
         #          avatar='https://static.vecteezy.com/system/resources/previews/020/429/953/non_2x/admin-icon-vector.jpg',
         #          password=str(hashlib.md5("123456".encode('utf-8')).hexdigest()),
         #          user_role=UserRole.ADMIN)
-        u2 = User(name='caodat', username='123456',
-                  avatar='https://static.vecteezy.com/system/resources/previews/020/429/953/non_2x/admin-icon-vector.jpg',
-                  password=str(hashlib.md5("123456".encode('utf-8')).hexdigest()),
-                  user_role=UserRole.USER)
-        db.session.add(u2)
-        db.session.commit()
+        # u2 = User(name='caodat', username='123456',
+        #           avatar='https://static.vecteezy.com/system/resources/previews/020/429/953/non_2x/admin-icon-vector.jpg',
+        #           password=str(hashlib.md5("123456".encode('utf-8')).hexdigest()),
+        #           user_role=UserRole.USER)
+        # db.session.add(u2)
+        # db.session.commit()

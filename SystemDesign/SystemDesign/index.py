@@ -97,6 +97,13 @@ def register_user():
     return render_template('register.html', err_msg=err_msg)
 
 
+@app.route("/book_room", methods=['get', 'post'])
+def book_room():
+    if request.method.__eq__('POST'):
+        pass
+    return render_template('book_room.html')
+
+
 if __name__ == '__main__':
     with app.app_context():
         app.run(debug=True)
