@@ -6,6 +6,8 @@ import hashlib
 
 def load_categories():
     return Category.query.all()
+
+
 #    with open('data/categories.json', 'r', encoding='utf-8') as f:
 #        return json.load(f)
 
@@ -30,6 +32,7 @@ def load_products(q=None, cate_id=None, page=None):
     else:
         return query.all()
 
+
 #    with open('data/products.json', 'r', encoding='utf-8') as f:
 #        products = json.load(f)
 
@@ -44,6 +47,8 @@ def load_products(q=None, cate_id=None, page=None):
 
 def get_product_by_id(product_id):
     return Product.query.get(product_id)
+
+
 #    with open('data/products.json', 'r', encoding='utf-8') as f:
 #        products = json.load(f)
 #        for p in products:
@@ -61,6 +66,12 @@ def auth_user(username, password):
     return User.query.filter(User.username.__eq__(username.strip()),
                              User.password.__eq__(password)).first()
 
+
+def add_user(name, username, password, avatar):
+    password = str(hashlib.md5(password.strip().encode('utf-8')).hexdigest())
+    u = User(name=name, username=username, password=password, avatar=avatar)
+    db.session.add(u)
+    db.session.commit()
 
 if __name__ == '__main__':
     print(load_categories())
