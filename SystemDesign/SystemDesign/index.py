@@ -4,7 +4,7 @@ from flask import render_template, request, redirect, session, jsonify
 import dao
 import utils
 from SystemDesign import app, admin, login
-from flask_login import login_user, current_user, logout_user
+from flask_login import login_user, current_user, logout_user, login_required
 import cloudinary.uploader
 from decorators import loggedin
 
@@ -42,7 +42,8 @@ def login_my_user():
         if dao.auth_user(username=username, password=password):
             login_user(user)
 
-            return redirect('/')
+            next = request.args.get('next')
+            return redirect(next if next else '/')
         else:
             err_msg = 'Tên đăng nhập không hợp lệ!'
 
@@ -87,11 +88,14 @@ def add_to_cart():
                 "price": "...",
                 "quantity": 1
                 "quantityRoom": 1
+                "checkInDate": "..."
+                "checkOutDate": "..."
             }, "2": {
                 "name": "...",
                 "price": "...",
                 "quantity": 1
                 "quantityRoom": 1
+                "checkOutDate": "..."
             }
         }
     }
@@ -115,6 +119,8 @@ def add_to_cart():
             "name": request.json.get('name'),
             "price": request.json.get('price'),
             "quantity": 1,
+            "check_in_date": request.json.get('check_in_date'),
+            "check_out_date": request.json.get('check_out_date'),
         }
     # Cập nhật giỏ
     session['cart'] = cart
@@ -192,6 +198,19 @@ def book_room():
     if request.method.__eq__('POST'):
         pass
     return render_template('book_room.html')
+
+
+@app.route('/api/pay', methods=['post'])
+@login_required
+def pay():
+    try:
+        dao.add_receipt(session.get('cart'))
+    except Exception as ex:
+        print(ex)
+        raise Exception({'status': 500})
+    else:
+        del session['cart']
+        return jsonify({'status': 200})
 
 
 if __name__ == '__main__':

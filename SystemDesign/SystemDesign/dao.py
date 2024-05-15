@@ -1,4 +1,4 @@
-from SystemDesign.models import Category, Product, User
+from SystemDesign.models import Category, Product, User, Receipt, ReceiptDetails
 from flask_login import current_user
 from SystemDesign import app, db
 import hashlib
@@ -72,6 +72,20 @@ def add_user(name, username, password, avatar):
     u = User(name=name, username=username, password=password, avatar=avatar)
     db.session.add(u)
     db.session.commit()
+
+
+def add_receipt(cart):
+    if cart:
+        r = Receipt(user=current_user)
+        db.session.add(r)
+
+        for c in cart.values():
+            d = ReceiptDetails(quantity=c['quantity'], unit_price=c['price'],
+                               receipt=r, product_id=c['id'])
+            db.session.add(d)
+
+        db.session.commit()
+
 
 if __name__ == '__main__':
     print(load_categories())

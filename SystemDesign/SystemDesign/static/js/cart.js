@@ -4,7 +4,7 @@ function addToCart(id, name, price) {
         body: JSON.stringify({
             "id": id,
             "name": name,
-            "price": price
+            "price": price,
         }),
         headers: {
             "Content-Type": "application/json"
@@ -55,3 +55,30 @@ function deleteCart(productId) {
         });
     }
 }
+
+function pay() {
+    if (confirm("Bạn chắc chắn thanh toán?") === true) {
+        fetch("/api/pay", {
+            method: "post"
+        }).then(res => {
+            if (res.status === 200)
+                location.reload();
+            else
+                alert("Hệ thống đang có lỗi! Vui lòng quay lại sau!");
+        })
+
+    }
+}
+
+//function pay() {
+//    if (confirm("Bạn chắc chắn thanh toán?") === true) {
+//        fetch("/api/pay", {
+//            method: "post"
+//        }).then(res => res.json()).then(data =>){
+//            if (data.status === 200)
+//                location.reload();
+//            else
+//                alert("Hệ thống đang bị lỗi vui lòng thử lại!");
+//        })
+//    }
+//}

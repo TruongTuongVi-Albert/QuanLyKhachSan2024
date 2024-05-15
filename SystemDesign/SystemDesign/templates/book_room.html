@@ -1,40 +1,61 @@
 {% extends 'layout/base.html' %}
 
-{% block title %}Đặt phòng{% endblock %}
+{% block title %}Phiếu dặt phòng{% endblock %}
 
 {% block content %}
-<h2 class="text-center text-muted mt-3">Đặt phòng</h2>
-{% if err_msg %}
-<div class="alert alert-danger">{{err_msg}}</div>
+<h1 class="text-center text-success mt-2">PHIẾU ĐẶT PHÒNG</h1>
+
+{% if 'cart' in session %}
+<table class="table container" style="width: 1000px">
+    <tr>
+        <th>Id</th>
+        <th>Tên phòng</th>
+        <th>Đơn giá</th>
+        <th>Số lượng phòng</th>
+        <th>Số lượng người</th>
+        <th>Ngày nhận phòng</th>
+        <th>Ngày trả phòng</th>
+    </tr>
+    {% for c in session['cart'].values() %}
+    <tr id="product{{c.id}}">
+        <td>{{ c.id }}</td>
+        <td>{{ c.name }}</td>
+        <td>{{ "{:,.0f}".format(c.price) }} VNĐ</td>
+        <td>{{ c.quantity }}</td>
+        <td>{{c.checkInDate}}</td>
+        <td>{{c.checkOutDate}}</td>
+    </tr>
+    {% endfor %}
+</table>
+<br>
+<div class="row">
+    {% if current_user.is_authenticated %}
+
+    <div class="col-md-3"></div>
+
+    <div class="col-md-3 col-12">
+        <a class="nav-link " href="/"><button class="btn btn-primary border-dark border-2" >Thanh toán trực tuyến</button></a>
+    </div>
+
+    <div class="col-md-3 col-12">
+        <a class="nav-link " href="/"><button class="btn btn-primary border-dark border-2" >In Phiếu</button></a>
+    </div>
+
+    <div class="col-md-4 col-12 text-success " style="height: 90px" >
+        <h4 >Tổng số phòng: <span class="cart-counter">{{ cart_stats.total_quantity }}</span></h4>
+        <h4 >Tổng tiền: <span class="cart-amount">{{ "{:,.0f}".format(cart_stats.total_amount) }}</span> VNĐ</h4>
+    </div>
+
+    <div class="col-md-1"></div>
+</div> <br>
+
+{% else %}
+<p>Vui lòng <a href="/login">đăng nhập</a> để thanh toán!</p>
 {% endif %}
-<form class="container " method="post" style="width: 600px" enctype="multipart/form-data">
-    <div class="form-floating mb-3 mt-3">
-        <input class="form-control" id="name" name="name" placeholder="Họ tên" type="text" required>
-        <label for="name">Họ tên</label>
-    </div>
+{% else %}
+<div class="alert alert-info">
+    <h4>Không có phòng đã yêu thích!</h4>
+</div>
+{% endif %}
 
-    <div class="form-floating mt-3 mb-3">
-        <input class="form-control" id="phone" name="phone" placeholder="Số điện thoại" type="text" required>
-        <label for="phone">Số điện thoại</label>
-    </div>
-
-     <div class="form-floating mt-3 mb-3">
-        <input class="form-control" id="quantity_customer" name="quantity_customer" placeholder="Số lượng khách" type="number" required>
-        <label for="quantity_customer">Số lượng khách</label>
-    </div>
-
-    <div class="form-floating mt-3 mb-3">
-        <input class="form-control" id="check_in_date" name="check_in_date" placeholder="Ngày nhận phòng" type="date" required>
-        <label for="check_in_date">Ngày nhận phòng</label>
-    </div>
-
-    <div class="form-floating mt-3 mb-3">
-        <input class="form-control" id="check_out_date" name="check_out_date" placeholder="Ngày trả phòng" type="date" required>
-        <label for="check_out_date">Ngày trả phòng</label>
-    </div>
-
-    <div class="form-floating mt-3 mb-3">
-       <button class="btn btn-primary" type="submit" >Đặt phòng</button>
-    </div>
-</form>
 {% endblock %}
