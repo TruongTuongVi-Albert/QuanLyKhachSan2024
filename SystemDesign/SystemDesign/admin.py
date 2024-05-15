@@ -10,6 +10,9 @@ class AuthenticatedView(ModelView):
     def is_accessible(self):
         return current_user.is_authenticated and current_user.user_role == UserRole.ADMIN
 
+class Reccep(ModelView):
+    def is_receptionist(self):
+        return current_user.is_authenticated and current_user.user_role == UserRole.RECEPTIONIST
 
 class MyProductView(AuthenticatedView):
     column_list = ['id', 'name', 'price', 'category_id']
@@ -21,6 +24,9 @@ class MyProductView(AuthenticatedView):
 
 class MyCategoryView(AuthenticatedView):
     column_list = ['id', 'name', 'products']
+
+
+
 
 
 class LogoutView(BaseView):  # Tạo view đăng xuất

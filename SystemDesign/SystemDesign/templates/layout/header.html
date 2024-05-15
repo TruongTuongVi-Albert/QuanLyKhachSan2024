@@ -23,6 +23,10 @@
                     <a class="nav-link active " href="#">&#127759; English</a>
                 </li>
 
+                <li class="nav-item">
+                    <a class="nav-link active " href="/api/cart">&#128722;  <span class="badge bg-secondary cart-counter">{{ cart_stats.total_quantity }}</span></a>
+                </li>
+
 
                 {% if current_user.is_authenticated %}
                 <li class="nav-item">
@@ -44,9 +48,9 @@
                 </li>
                 {% endif %}
             </ul>
-            <form class="d-flex m-2" style="height: 35px">
-                <input class="form-control me-2"  placeholder="Search..." type="text">
-                <button class="btn btn-primary bg-dark" type="button">&#x1F50D;</button>
+            <form class="d-flex m-2" style="height: 35px" method="get">
+                <input class="form-control me-2" name="q" placeholder="Search..." type="text">
+                <button class="btn btn-primary bg-dark" type="submit">&#x1F50D;</button>
             </form>
         </div>
     </div>

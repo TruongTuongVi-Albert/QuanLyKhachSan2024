@@ -10,6 +10,7 @@ from SystemDesign import db, app
 class UserRole(RoleEnum):
     USER = 1
     ADMIN = 2
+    RECEPTIONIST = 3
 
 
 class User(UserMixin, db.Model):
@@ -61,32 +62,41 @@ class BookRoom(db.Model):
 
 if __name__ == '__main__':
     with app.app_context():
-        db.create_all()
-        # c1 = Category(name='Phòng đơn')
-        # c2 = Category(name='Phòng đôi đơn giản')
-        # c3 = Category(name='Phòng đôi cao cấp')
-        # c4 = Category(name='Phòng ba')
-        # db.session.add_all([c1, c2, c3, c4])
-        # db.session.commit()
-        #
-        # import json
-        # with open('data/products.json', encoding='utf-8') as f:
-        #     products = json.load(f)
-        #     for p in products:
-        #         prod = Product(**p)
-        #         db.session.add(prod)
-        #
-        #     db.session.commit()
+        # db.create_all()
+
+        c1 = Category(name='Phòng đơn')
+        c2 = Category(name='Phòng đôi đơn giản')
+        c3 = Category(name='Phòng đôi cao cấp')
+        c4 = Category(name='Phòng ba')
+        db.session.add_all([c1, c2, c3, c4])
+        db.session.commit()
+
+        import json
+
+        with open('data/products.json', encoding='utf-8') as f:
+            products = json.load(f)
+            for p in products:
+                prod = Product(**p)
+                db.session.add(prod)
+
+            db.session.commit()
 
         import hashlib
 
-        # u = User(name='admin', username='admin',
-        #          avatar='https://static.vecteezy.com/system/resources/previews/020/429/953/non_2x/admin-icon-vector.jpg',
-        #          password=str(hashlib.md5("123456".encode('utf-8')).hexdigest()),
-        #          user_role=UserRole.ADMIN)
-        # u2 = User(name='caodat', username='123456',
-        #           avatar='https://static.vecteezy.com/system/resources/previews/020/429/953/non_2x/admin-icon-vector.jpg',
-        #           password=str(hashlib.md5("123456".encode('utf-8')).hexdigest()),
-        #           user_role=UserRole.USER)
-        # db.session.add(u2)
-        # db.session.commit()
+        u1 = User(name='admin', username='admin',
+                avatar='https://static.vecteezy.com/system/resources/previews/020/429/953/non_2x/admin-icon-vector.jpg',
+                password=str(hashlib.md5("123456".encode('utf-8')).hexdigest()),
+                user_role=UserRole.ADMIN)
+
+        u2 = User(name='caodat', username='123456',
+                avatar='https://static.vecteezy.com/system/resources/previews/020/429/953/non_2x/admin-icon-vector.jpg',
+                password=str(hashlib.md5("12345678".encode('utf-8')).hexdigest()),
+                user_role=UserRole.USER)
+
+        u3 = User(name='receptionist', username='receptionist',
+                avatar='https://i.pngimg.me/thumb/f/720/c3f2c592f9.jpg',
+                password=str(hashlib.md5("1234567".encode('utf-8')).hexdigest()),
+                user_role=UserRole.RECEPTIONIST)
+        db.session.add_all([u1, u2, u3])
+        db.session.commit()
+

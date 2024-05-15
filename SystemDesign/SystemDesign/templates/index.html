@@ -21,6 +21,7 @@
                 <p class="card-text">{{p.price}} VNĐ</p>
                 <a class="btn btn-primary" href="/products/{{p.id}}">Xem chi tiết</a>
                 <a class="btn btn-danger" href="/book_room">Đặt ngay</a>
+                <a class="btn btn-mini" style="font-size: 20px" href="javascript:;" onclick="addToCart({{p.id}}, '{{p.name|escape}}', {{p.price}})">&#128150;</a>
             </div>
         </div>
     </div>

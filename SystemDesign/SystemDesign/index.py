@@ -1,10 +1,12 @@
 import math
 
-from flask import render_template, request, redirect
+from flask import render_template, request, redirect, session, jsonify
 import dao
+import utils
 from SystemDesign import app, admin, login
 from flask_login import login_user, current_user, logout_user
 import cloudinary.uploader
+from decorators import loggedin
 
 
 @app.route('/')
@@ -26,6 +28,7 @@ def details(id):
 
 
 @app.route('/login', methods=['GET', 'POST'])
+@loggedin
 def login_my_user():
     if current_user.is_authenticated:
         return redirect('/')
@@ -38,6 +41,7 @@ def login_my_user():
         user = dao.auth_user(username=username, password=password)
         if dao.auth_user(username=username, password=password):
             login_user(user)
+
             return redirect('/')
         else:
             err_msg = 'Tên đăng nhập không hợp lệ!'
@@ -53,8 +57,7 @@ def logout_my_user():
 
 @app.route('/intro')
 def intro():
-    product = dao.get_product_by_id(product_id=id)
-    return render_template('intro.html', product=product)
+    return render_template('intro.html')
 
 
 @login.user_loader
@@ -73,7 +76,89 @@ def process_admin_login():
     return redirect('/admin')
 
 
+@app.route('/api/carts', methods=['post'])  # Để thêm sp vào giỏ
+def add_to_cart():
+    """
+    {
+        "cart": {
+            "1": {
+                "id": "",
+                "name": "...",
+                "price": "...",
+                "quantity": 1
+                "quantityRoom": 1
+            }, "2": {
+                "name": "...",
+                "price": "...",
+                "quantity": 1
+                "quantityRoom": 1
+            }
+        }
+    }
+    :return:
+    """
+    cart = session.get('cart')
+    if not cart:
+        cart = {}
+
+    id = str(request.json.get('id'))
+    if id in cart:
+        # Trường hợp sp đã có trong giỏ rồi, lấy nó ra
+        if cart[id]['quantity'] >= 1:
+            cart[id]['quantity'] -= 1
+        else:
+            cart[id]['quantity'] += 1
+    else:
+        # Thêm phần tử vào từ điển (Thêm mới sp vào giỏ)
+        cart[id] = {
+            "id": id,
+            "name": request.json.get('name'),
+            "price": request.json.get('price'),
+            "quantity": 1,
+        }
+    # Cập nhật giỏ
+    session['cart'] = cart
+
+    # api lun trả về json
+    # Thống kê kết quả trả về, hiện lên giao diện
+    return jsonify(utils.count_cart(cart))
+
+
+@app.route('/api/cart')
+def cart():
+    return render_template('cart.html')
+
+
+@app.route('/api/cart/<product_id>', methods=['put'])
+def update_cart(product_id):
+    cart = session.get('cart')
+    if cart and product_id in cart:
+        cart[product_id]['quantityRoom'] = request.json['quantityRoom']
+        session['cart'] = cart
+
+    return jsonify(utils.count_cart(cart))
+
+
+@app.route('/api/cart/<product_id>', methods=['delete'])
+def delete_cart(product_id):
+    cart = session.get('cart')
+    if cart and product_id in cart:
+        del cart[product_id]
+        session['cart'] = cart
+
+    return jsonify(utils.count_cart(cart))
+
+
+@app.context_processor
+def common_attributes():
+    return {
+        'categories': dao.load_categories(),
+        'cart_stats': utils.count_cart(session.get('cart'))
+    }
+
+
 @app.route("/register", methods=['get', 'post'])
+@loggedin
 def register_user():
     err_msg = None
     if request.method.__eq__('POST'):
@@ -95,6 +180,11 @@ def register_user():
             err_msg = 'Mật khẩu không khớp!'
 
     return render_template('register.html', err_msg=err_msg)
+
+
+@app.route('/rent', methods=['get', 'post'])
+def rent():
+    return render_template('rent.html')
 
 
 @app.route("/book_room", methods=['get', 'post'])

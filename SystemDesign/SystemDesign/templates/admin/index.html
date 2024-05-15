@@ -1,7 +1,7 @@
 {% extends 'admin/master.html' %}
 
 {% block body%}
-<h2 class="text-muted text-center mt-3"> CHÀO BẠN ĐẾN TRANG QUẢN TRỊ OPEN HOTEL</h2>
+<h2 class="text-muted text-center mt-3"> CHÀO BẠN ĐẾN TRANG OPEN HOTEL</h2>
 
 {% if current_user.is_authenticated %}
 <h2 class="text-success">Chào bạn <span>{{current_user.name}}</span> !!!</h2>
@@ -16,7 +16,7 @@
 
     <div class="form-group mt-3 mb-3">
         <label for="password">Mật khẩu</label>
-        <input class="form-control" id="password" name="password" placeholder="Mật khẩu" required>
+        <input class="form-control" id="password" name="password" placeholder="Mật khẩu" type="password" required>
 
     </div>
 
