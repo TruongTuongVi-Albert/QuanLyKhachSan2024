@@ -188,9 +188,37 @@ def register_user():
     return render_template('register.html', err_msg=err_msg)
 
 
-@app.route('/rent', methods=['get', 'post'])
+@app.route('/api/rent', methods=['GET', 'POST'])
+@login_required
 def rent():
+    if request.method.__eq__('POST'):
+        user_id = request.form.get('user_id')
+        product_id = request.form.get('product_id')
+        product_name = request.form.get('product_name')
+        check_in_date = request.form.get('check_in_date')
+        check_out_date = request.form.get('check_out_date')
+        nationality = request.form.get('nationality')
+        CCCD = request.form.get('CCCD')
+        passport = request.form.get('passport')
+        phone = request.form.get('phone')
+        status = request.form.get('status')
+
+        dao.add_rent(user_id=user_id, product_id=product_id, product_name=product_name,check_in_date=check_in_date,check_out_date=check_out_date,
+                     nationality=nationality, CCCD=CCCD, passport=passport, phone=phone, status=status)
+
+        return redirect('/rent')
+
     return render_template('rent.html')
+
+
+@app.route('/stats', methods=['get', 'post'])
+def stats():
+    return render_template('stats.html')
+
+
+@app.route('/statsMD', methods=['get', 'post'])
+def statsMD():
+    return render_template('statsMD.html')
 
 
 @app.route("/book_room", methods=['get', 'post'])
@@ -203,14 +231,16 @@ def book_room():
 @app.route('/api/pay', methods=['post'])
 @login_required
 def pay():
+    cart = session.get('cart')
     try:
-        dao.add_receipt(session.get('cart'))
+        dao.add_receipt(cart)
     except Exception as ex:
         print(ex)
-        raise Exception({'status': 500})
+        return jsonify({'status': 500})
     else:
         del session['cart']
         return jsonify({'status': 200})
+
 
 
 if __name__ == '__main__':

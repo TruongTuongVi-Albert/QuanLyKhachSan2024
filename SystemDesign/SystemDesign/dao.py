@@ -1,7 +1,10 @@
-from SystemDesign.models import Category, Product, User, Receipt, ReceiptDetails
+from datetime import datetime
+from sqlalchemy import func
+from SystemDesign.models import Category, Product, User, Receipt, ReceiptDetails, Rent
 from flask_login import current_user
 from SystemDesign import app, db
 import hashlib
+from SystemDesign.models import Rent
 
 
 def load_categories():
@@ -87,5 +90,40 @@ def add_receipt(cart):
         db.session.commit()
 
 
+def count_products_by_cate():
+    return db.session.query(Category.id, Category.name,
+                            func.count(Product.id)).join(Product, Product.category_id.__eq__(Category.id), isouter=True)\
+                     .group_by(Category.id).all()
+
+
+def stats_revenue_by_product(kw=None):
+    query = db.session.query(Product.id, Product.name,
+                             func.sum(ReceiptDetails.quantity*ReceiptDetails.unit_price))\
+                      .join(ReceiptDetails, ReceiptDetails.product_id.__eq__(Product.id), isouter=True)
+
+    if kw:
+        query = query.filter(Product.name.contains(kw))
+
+    return query.group_by(Product.id).all()
+
+
+def stats_revenue_by_period(year=datetime.now().year, period='month'):
+    query = db.session.query(func.extract(period, Receipt.created_date),
+                             func.sum(ReceiptDetails.quantity*ReceiptDetails.unit_price))\
+                      .join(ReceiptDetails, ReceiptDetails.receipt_id.__eq__(Receipt.id))\
+                      .filter(func.extract('year', Receipt.created_date).__eq__(year))
+
+    return query.group_by(func.extract(period, Receipt.created_date))\
+                .order_by(func.extract(period, Receipt.created_date)).all()
+
+
+def add_rent(user_id, product_id, product_name, check_in_date, check_out_date, nationality, CCCD, passport, phone, status):
+    new_rent = Rent(user_id=user_id, product_id=product_id, product_name=product_name, check_in_date=check_in_date, check_out_date=check_out_date,
+                    nationality=nationality, CCCD=CCCD, passport=passport, phone=phone, status=status)
+    db.session.add(new_rent)
+    db.session.commit()
+
+
 if __name__ == '__main__':
-    print(load_categories())
+    with app.app_context():
+        print(count_products_by_cate())

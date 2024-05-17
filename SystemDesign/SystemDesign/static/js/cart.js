@@ -60,8 +60,8 @@ function pay() {
     if (confirm("Bạn chắc chắn thanh toán?") === true) {
         fetch("/api/pay", {
             method: "post"
-        }).then(res => {
-            if (res.status === 200)
+        }).then(res => res.json()).then(data =>{
+            if (data.status === 200)
                 location.reload();
             else
                 alert("Hệ thống đang có lỗi! Vui lòng quay lại sau!");
@@ -70,15 +70,4 @@ function pay() {
     }
 }
 
-//function pay() {
-//    if (confirm("Bạn chắc chắn thanh toán?") === true) {
-//        fetch("/api/pay", {
-//            method: "post"
-//        }).then(res => res.json()).then(data =>){
-//            if (data.status === 200)
-//                location.reload();
-//            else
-//                alert("Hệ thống đang bị lỗi vui lòng thử lại!");
-//        })
-//    }
-//}
+

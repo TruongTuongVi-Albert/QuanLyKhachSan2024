@@ -8,29 +8,20 @@
 {% if 'cart' in session %}
 <table class="table container" style="width: 1000px">
     <tr>
-        <th>Id</th>
         <th>Tên phòng</th>
         <th>Đơn giá</th>
         <th>Số lượng phòng</th>
         <th>Số lượng người</th>
-<!--        <th>Ngày đặt phòng</th>-->
-<!--        <th>Ngày trả phòng</th>-->
     </tr>
     {% for c in session['cart'].values() %}
     <tr id="product{{c.id}}">
-        <td>{{ c.id }}</td>
         <td>{{ c.name }}</td>
         <td>{{ "{:,.0f}".format(c.price) }} VNĐ</td>
         <td>{{ c.quantity }}</td>
         <td>
-            <input class="form-control" onblur="updateCart({{ c.id }}, this)" type="number" value="{{ c.quantityRoom }}"/>
+            <input class="form-control" onblur="updateCart({{ c.id }}, this)" type="number"
+                   value="{{ c.quantityRoom }}"/>
         </td>
-<!--        <td>-->
-<!--            <input class="form-control" onblur="updateCart({{ c.id }}, this)" type="date" value="{{ c.checkInDate }}"/>-->
-<!--        </td>-->
-<!--        <td>-->
-<!--            <input class="form-control" onblur="updateCart({{ c.id }}, this)" type="date" value="{{ c.checkOutDate }}"/>-->
-<!--        </td>-->
         <td>
             <button class="btn btn-danger" onclick="deleteCart({{ c.id }})">&times;</button>
         </td>
@@ -40,24 +31,26 @@
 <br>
 <div class="row">
     {% if current_user.is_authenticated %}
+
     <div class="col-md-3"></div>
+
     <div class="col-md-3 col-12">
-        <button class="btn btn-primary border-dark border-2" onclick="pay()">Thanh toán</button>
+        <a class="nav-link ">
+            <button class="btn btn-primary border-dark border-2 " onclick="pay()">Thanh toán trực tuyến</button>
+        </a>
     </div>
-    <div class="col-md-3 col-12">
-        <a href="/book_room"><button class="btn btn-primary border-dark border-2">Phiếu đặt phòng</button></a>
-    </div>
-    {% else %}
-    <p>Vui lòng <a href="/login?next=/cart">đăng nhập</a> để thanh toán</p>
-    {% endif %}
-</div>
-<div class="row">
-    <div class="col-md-4 col-12 text-success" style="height: 90px">
+
+    <div class="col-md-4 col-12 text-success " style="height: 90px">
         <h4>Tổng số phòng: <span class="cart-counter">{{ cart_stats.total_quantity }}</span></h4>
         <h4>Tổng tiền: <span class="cart-amount">{{ "{:,.0f}".format(cart_stats.total_amount) }}</span> VNĐ</h4>
     </div>
+
     <div class="col-md-1"></div>
-</div>
+</div> <br>
+
+{% else %}
+<p>Vui lòng <a href="/login">đăng nhập</a> để thanh toán!</p>
+{% endif %}
 {% else %}
 <div class="alert alert-info">
     <h4>Không có phòng đã yêu thích!</h4>

@@ -1,5 +1,102 @@
 {% extends 'admin/master.html' %}
 
 {% block body%}
+<h2 class="text-muted text-center mt-3"> LẬP PHIẾU THUÊ PHÒNG</h2>
+
+
+<form class="container " method="post" style="width: 600px">
+    <div class="form-group mb-3 mt-3">
+        <label for="user_id">Tên khách hàng</label>
+        <input class="form-control" id="user_id" name="user_id" pattern="[a-zA-Z0-9]*" placeholder="Tên khách hàng"
+               required type="text">
+    </div>
+
+    {% for c in session['cart'].values() %}
+    <div class="form-group mt-3 mb-3">
+        <label for="product_name">Phòng thuê</label>
+        <span class="form-control font-weight-bold" id="product_name" name="product_name" type="text">{{ c.name }}</span>
+
+    </div>
+    {% endfor %}
+
+    <div class="row">
+        <div class="col-md-4">
+            <label for="check_in_date">Ngày nhận phòng</label>
+            <input class="form-control" id="check_in_date" name="check_in_date" placeholder="Ngày nhận phòng"
+                   required type="date">
+        </div>
+
+        <div class="col-md-4">
+            <label for="check_out_date">Ngày trả phòng</label>
+            <input class="form-control" id="check_out_date" name="check_out_date" placeholder="Ngày trả phòng"
+                   required type="date">
+        </div>
+    </div>
+    <br>
+
+    <div>
+        <div class="form-group">
+            <label for="nationality">Quốc tịch</label>
+            <select class="form-control" id="nationality" name="nationality" onchange="showRelevantField()" required>
+                <option disabled selected value="">Chọn quốc tịch</option>
+                <option value="Việt Nam">Việt Nam</option>
+                <option value="Quốc tế">Quốc tế</option>
+            </select>
+        </div>
+
+        <div class="form-group d-none" id="PT">
+            <label for="passport">Hộ chiếu</label>
+            <input class="form-control" id="passport" name="passport" placeholder="Hộ chiếu" type="text">
+        </div>
+
+        <div class="form-group d-none" id="CC">
+            <label for="CCCD">CCCD</label>
+            <input class="form-control" id="CCCD" name="CCCD" placeholder="Căn cước công dân" type="text">
+        </div>
+    </div>
+
+
+    <div class="form-group ">
+        <label for="phone">Số điện thoại</label>
+        <input class="form-control" id="phone" name="phone" placeholder="Số điện thoại" required type="text">
+    </div><br>
+
+    <div class="row container">
+        <div class="col-md-1"></div>
+        <div class="form-floating col-md-5">
+            <button class="btn border-dark border-3 btn-info " onclick="rent()">Lập phiếu thuê phòng</button>
+        </div>
+        <div class="col-md-1"></div>
+        <div class="form-floating col-md-5">
+            <button class="btn border-dark border-3 btn-danger" type="submit">Xuất phiếu thuê phòng</button>
+        </div>
+    </div>
+    <br>
+</form>
+
+
+<script>
+    function showRelevantField() {
+        var nationality = document.getElementById('nationality').value;
+        var passport = document.getElementById('PT');
+        var citizen = document.getElementById('CC');
+
+        if (nationality === 'Quốc tế') {
+            passport.classList.remove('d-none');
+            passport.querySelector('input').required = true;
+            citizen.classList.add('d-none');
+            citizen.querySelector('input').required = false;
+        } else if (nationality === 'Việt Nam') {
+            citizen.classList.remove('d-none');
+            citizen.querySelector('input').required = true;
+            passport.classList.add('d-none');
+            passport.querySelector('input').required = false;
+        }
+    }
+</script>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
 {% endblock %}
