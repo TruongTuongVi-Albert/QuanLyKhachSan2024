@@ -4,7 +4,7 @@
 <h2 class="text-muted text-center mt-3"> LẬP PHIẾU THUÊ PHÒNG</h2>
 
 
-<form class="container " method="post" style="width: 600px">
+<form class="container " method="post" action="/rent" style="width: 600px">
     <div class="form-group mb-3 mt-3">
         <label for="user_id">Tên khách hàng</label>
         <input class="form-control" id="user_id" name="user_id" pattern="[a-zA-Z0-9]*" placeholder="Tên khách hàng"
@@ -62,13 +62,9 @@
     </div><br>
 
     <div class="row container">
-        <div class="col-md-1"></div>
+        <div class="col-md-4"></div>
         <div class="form-floating col-md-5">
             <button class="btn border-dark border-3 btn-info " onclick="rent()">Lập phiếu thuê phòng</button>
-        </div>
-        <div class="col-md-1"></div>
-        <div class="form-floating col-md-5">
-            <button class="btn border-dark border-3 btn-danger" type="submit">Xuất phiếu thuê phòng</button>
         </div>
     </div>
     <br>

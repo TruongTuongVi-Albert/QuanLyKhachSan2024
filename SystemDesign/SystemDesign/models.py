@@ -44,6 +44,7 @@ class Product(db.Model):
     price = Column(Float, default=0)
     image = Column(String(100),
                    default='https://owa.bestprice.vn/images/hotels/large/terracotta-hotel-resort-da-lat-64ca10e5df84f-848x477.jpg')
+    status = Column(String(20), default='Phòng trống')
     category_id = Column(Integer, ForeignKey(Category.id), nullable=False)
     details = relationship('ReceiptDetails', backref='product', lazy=True)
     rents = relationship('Rent', backref='product', lazy=True)
@@ -89,19 +90,18 @@ class ReceiptDetails(Base):
 class Rent(Base):
     user_id = Column(Integer, ForeignKey(User.id), nullable=False)
     product_id = Column(Integer, ForeignKey(Product.id), nullable=False)
-    product_name = Column(String(50), unique=True, nullable=False)
     check_in_date = Column(Date)
     check_out_date = Column(Date)
     nationality = Column(String(50), nullable=False)
     CCCD = Column(String(50), unique=True, nullable=False)
     passport = Column(String(50), unique=True, nullable=False)
     phone = Column(String(50), nullable=False)
-    status = Column(String(5), default='no')
+
 
 
 if __name__ == '__main__':
     with app.app_context():
-        db.create_all()
+        # db.create_all()
 
         c1 = Category(name='Phòng đơn')
         c2 = Category(name='Phòng đôi đơn giản')

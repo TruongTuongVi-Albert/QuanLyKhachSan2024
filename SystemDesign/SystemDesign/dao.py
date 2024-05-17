@@ -112,7 +112,6 @@ def stats_revenue_by_period(year=datetime.now().year, period='month'):
                              func.sum(ReceiptDetails.quantity*ReceiptDetails.unit_price))\
                       .join(ReceiptDetails, ReceiptDetails.receipt_id.__eq__(Receipt.id))\
                       .filter(func.extract('year', Receipt.created_date).__eq__(year))
-
     return query.group_by(func.extract(period, Receipt.created_date))\
                 .order_by(func.extract(period, Receipt.created_date)).all()
 

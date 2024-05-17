@@ -1,6 +1,6 @@
 function rent() {
-    if (confirm("Bạn chắc chắn thanh toán?") === true) {
-        fetch("/api/rent", {
+    if (confirm("Bạn chắc chắn lập phiếu thuê phòng?") === true) {
+        fetch("/rent", {
             method: "post"
         }).then(res => res.json()).then(data =>{
             if (data.status === 200)

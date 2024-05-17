@@ -188,7 +188,7 @@ def register_user():
     return render_template('register.html', err_msg=err_msg)
 
 
-@app.route('/api/rent', methods=['GET', 'POST'])
+@app.route('/rent', methods=['GET', 'POST'])
 @login_required
 def rent():
     if request.method.__eq__('POST'):
